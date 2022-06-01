@@ -1,0 +1,24 @@
+.courseTitle {
+    background-color: rgb(249, 249, 159);
+    font-size: 25px;
+    border-radius: 10px;
+    font-family: cursive;
+}
+
+.courseRSVP {
+    margin-top: 15px;
+    background-color: rgb(250, 238, 222);
+    font-size: 15px;
+    border-radius: 10px;
+    font-family: sans-serif;
+
+}
+
+.courseDetails {
+    margin-top: 15px;
+    background-color: aliceblue;
+    font-family: sans-serif;
+    border-radius: 10px;
+    font-size: 20px;
+
+}

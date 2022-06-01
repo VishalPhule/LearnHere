@@ -1,0 +1,82 @@
+<template>
+    <div class="slds-var-p-around_large">
+        <lightning-spinner alternative-text="Loading" size="small" if:true={isSpinner}></lightning-spinner>
+
+        <template if:true={__courseDetails}>
+            <!-- Course Title -->
+            <div class=" courseTitle slds-var-p-around_large">
+                <p>{__courseDetails.Name__c}</p>
+                <p>
+                    <lightning-formatted-date-time value={__courseDetails.StartDateTime__c} year="numeric" month="short"
+                        day="2-digit" hour="2-digit" minute="2-digit">
+                    </lightning-formatted-date-time>
+                </p>
+                <!-- Course Location -->
+                <div class=" location slds-var-p-around_large">
+                    <template if:false={__courseDetails.Location__c}>
+                        <p>This is a virtual course</p>
+                    </template>
+                    <template if:true={__courseDetails.Location__c}>
+                        <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                            medium-device-size="6" large-device-size="4">
+                        <p>    {__courseDetails.Location__r.Name}</p>
+                            <lightning-formatted-address  street={__courseDetails.Location__r.Street__c}
+                                city={__courseDetails.Location__r.City__c} state={__courseDetails.Location__r.State__c}
+                                country={__courseDetails.Location__r.Country__c} postal
+                                code={__courseDetails.Location__r.PostalCode__c}>
+                            </lightning-formatted-address>
+                        </lightning-layout-item>
+                    </template>
+                </div>
+            </div>
+            <!-- Course Details -->
+            <div class=" courseDetails slds-var-p-around_large">
+                <lightning-formatted-rich-text value={__courseDetails.CourseDetails__c}>
+                </lightning-formatted-rich-text>
+            </div>
+            <!-- Course ENROLL -->
+            <div class=" courseRSVP slds-var-p-around_large">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                        medium-device-size="6" large-device-size="4">
+                        To Enroll This Course Click ENROLL NOW Buttton and the last date to Register is
+                    </lightning-layout-item>
+                    <br />
+                    <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                        medium-device-size="6" large-device-size="4">
+                        <lightning-formatted-date-time value={__courseDetails.StartDateTime__c} year="numeric"
+                            month="short" day="2-digit" hour="2-digit" minute="2-digit">
+                        </lightning-formatted-date-time>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                        medium-device-size="6" large-device-size="4">
+                        <lightning-button variant="brand" label="Enroll Now" title="Enroll Now" onclick={handleRSVP}>
+                        </lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+            </div>
+
+            <!-- Course Location -->
+            <div class="slds-var-p-around_large">
+                <p>Course Record Id - {courseId} </p>
+                <p>Course Source - {source} </p>
+            </div>
+            <!-- Course Trainer -->
+            <div class="slds-var-p-around_large">
+                <p>Course Record Id - {courseId} </p>
+                <p>Course Source - {source} </p>
+            </div>
+            <!-- Course Organizer -->
+            <div class="slds-var-p-around_large">
+                <p>Course Record Id - {courseId} </p>
+                <p>Course Source - {source} </p>
+            </div>
+            <!-- Contact Us -->
+            <div class="slds-var-p-around_large">
+                <lightning-button variant="success" label="Contact Us" title="Contact Us" onclick={handleContactUs}>
+                </lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,49 @@
+<template>
+    <div class="slds-m-around_small">
+        <lightning-card variant="Narrow" title="Course Details" icon-name="standard:event">
+            <lightning-tabset variant="scoped" active-tab-value="event">
+                <lightning-tab label="Course Details" value="course">
+                    <div class="slds-m-around_small">
+                        <lightning-record-form record-id={recordId} mode="readonly" layout-type="Full" columns="2"
+                            object-api-name="Course__c">
+                        </lightning-record-form>
+                    </div>
+                </lightning-tab>
+                <lightning-tab label="Course Trainer" value="trainer" onactive={handleTrainerActive}>
+                    <lightning-button variant="brand" label="New Trainer" title="New Trainer" onclick={createTrainer}>
+                    </lightning-button>
+                    <br /><br />
+                    <template if:true={trainerList}>
+                        <template for:each={trainerList} for:item="trainer">
+                            <c-trainer-tile trainer={trainer} key={trainer.Id}></c-trainer-tile>
+                        </template>
+                    </template>
+                    <template if:false={errors}>
+                        <template if:false={trainerList}>
+                            There are no Trainer associated with the Course
+                        </template>
+                    </template>
+                </lightning-tab>
+                <lightning-tab label="Course Location" value="loaction" onactive={handleLocatioDetails}>
+                    <template if:true={courseRec}>
+                        Location Landmark - {courseRec.Location__r.Landmark__c}
+                        <lightning-formatted-address city={courseRec.Location__r.City__c}
+                            province={courseRec.Location__r.State__c} postal-code={courseRec.Location__r.PostalCode__c}
+                            country={courseRec.Location__r.Country} street={courseRec.Location__r.Street__c}
+                            title="Course Location">
+                        </lightning-formatted-address>
+                    </template>
+                </lightning-tab>
+                <lightning-tab label="Course Attendees" value="attendee" onactive={handleCourseAttendee}>
+                    <lightning-button variant="brand" label="New Attendee" title="New Attendee"
+                        onclick={createAttendee}>
+                    </lightning-button>
+                    <br /><br />
+                    <lightning-datatable key-field="id" data={attendeesList} show-row-number-column hide-checkbox-column
+                        columns={columnAtt}>
+                    </lightning-datatable>
+                </lightning-tab>
+            </lightning-tabset>
+        </lightning-card>
+    </div>
+</template>
