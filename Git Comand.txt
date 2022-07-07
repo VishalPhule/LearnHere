@@ -1,0 +1,33 @@
+…or create a new repository on the command line
+echo "# LearnHere" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/VishalPhule/LearnHere.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/VishalPhule/LearnHere.git
+git branch -M main
+git push -u origin main
+
+
+
+
+
+
+
+
+<user>
+<full_name>Vishal Phule</full_name>
+<provider>Facebook</provider>
+<org_id>00D5i000000JvQO</org_id>
+<last_name>Phule</last_name>
+<id>154076853823436</id>
+<portal_id>000000000000000</portal_id>
+<first_name>Vishal</first_name>
+<email>vishalphule2000@gmail.com</email>
+</user>
+
+
+AutocreatedRegHandler1654065689645
