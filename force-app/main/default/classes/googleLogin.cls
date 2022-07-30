@@ -118,14 +118,12 @@ global void updateUser(Id userId, Id portalId, Auth.UserData data){
         contact.LastName = data.lastName;
         contact.FirstName = data.firstName;
         contact.Email = data.email;
-       
         // set Account Id
         if (data.attributemap.get('accountId') != null){
             contact.accountId = data.attributemap.get('accountId');
         } else {
             List<Account> accounts = [select Id from Account where Name =:DEFAULT_ACCOUNTNAME];
             System.debug('Found account: ' + accounts);
-           
             contact.accountId = accounts[0].Id;            
         }
         insert contact;
@@ -135,7 +133,6 @@ global void updateUser(Id userId, Id portalId, Auth.UserData data){
         return contact.id;
     }
 
-   
     /**
      * Create and initialize the User but don't save it yet
      *

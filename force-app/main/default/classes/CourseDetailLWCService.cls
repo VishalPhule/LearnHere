@@ -5,7 +5,8 @@ public with sharing class CourseDetailLWCService {
         Course__c courseRecord = new Course__c();
         try {
             courseRecord = [
-                    SELECT Id,Name,Name__c,CourseOrganizer__c, CourseOrganizer__r.Name,
+                    SELECT Id,Name,Name__c,CourseOrganizer__c, CourseOrganizer__r.Name,CourseOrganizer__r.Email__c,
+                            CourseOrganizer__r.Company__c,CourseOrganizer__r.Short_Intro__c,CourseOrganizer__r.CourseOrganizerImageUrl__c,
                             CourseDetails__c, Location__c, Location__r.Name,Location__r.City__c,Location__r.Country__c,
                             Location__r.PostalCode__c,Location__r.State__c,Location__r.Street__c ,StartDateTime__c,
                             EndDateTime__c, Recurring__c, MaxSeats__c, Live__c, 
