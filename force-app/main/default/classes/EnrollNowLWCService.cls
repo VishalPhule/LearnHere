@@ -42,25 +42,25 @@ public without sharing class EnrollNowLWCService {
         return attendeeId;
     }
 
-    // @AuraEnabled(cacheable=true)
-    // public static List<CourseAttendee__c> fethRsvpList(String courseId){
-    //     List<CourseAttendee__c> attendees = new List<CourseAttendee__c>();
-    //     attendees = [SELECT Id, Course__c 
-    //                     FROM  CourseAttendee__c 
-    //                     WHERE Course__c =: courseId 
-    //                     AND   Attendee__r.User__c =: UserInfo.getUserId()
-    //                 ];
-    //     return attendees;
-    // }
+    @AuraEnabled(cacheable=true)
+    public static List<CourseAttendee__c> fethEnrollList(String courseId){
+        List<CourseAttendee__c> attendees = new List<CourseAttendee__c>();
+        attendees = [SELECT Id, Course__c 
+                        FROM  CourseAttendee__c 
+                        WHERE Course__c =: courseId 
+                        AND   Attendee__r.User__c =: UserInfo.getUserId()
+                    ];
+        return attendees;
+    }
 
-    // @AuraEnabled(cacheable=true)
-    // public static User fetchUserDetails(){
-    //     User user = new User();
-    //     try {
-    //         user = [SELECT Id, Name, Email, Title, CompanyName FROM User WHERE Id =: UserInfo.getUserId() LIMIT 1];
-    //     } catch (Exception e) {
-    //         throw new AuraHandledException(e.getMessage());
-    //     }
-    //     return user;
-    // }
+    @AuraEnabled(cacheable=true)
+    public static User fetchUserDetails(){
+        User user = new User();
+        try {
+            user = [SELECT Id, Name, Email, Title, CompanyName FROM User WHERE Id =: UserInfo.getUserId() LIMIT 1];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+        return user;
+    }
 }

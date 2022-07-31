@@ -53,8 +53,8 @@ export default class enrollNowComponent extends LightningElement {
                 courseId: this.courseId
             })
                 .then(result => {
-                    console.log('Result \n',result);
-                    alert('Enrolled SucessFully');
+                    // console.log('Result \n',result);
+                    // alert('Enrolled SucessFully');
                     this.dispatchEvent(new CustomEvent('success'));
                 })
                 .catch(error => {

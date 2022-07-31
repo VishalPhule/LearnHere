@@ -39,14 +39,15 @@ public with sharing class CourseDetailLWCService {
         return trainers;
     }
 
-    // @AuraEnabled(cacheable=true)
-    // public static List<Event_Attendee__c> fethRsvpList(String eventId){
-    //     List<Event_Attendee__c> attendees = new List<Event_Attendee__c>();
-    //     attendees = [SELECT Id, Event__c 
-    //                     FROM  Event_Attendee__c 
-    //                     WHERE Event__c =: eventId 
-    //                     AND   Attendee__r.User__c =: UserInfo.getUserId()
-    //                 ];
-    //     return attendees;
-    // }
+    @AuraEnabled(cacheable=true)
+    public static List<CourseAttendee__c> fethEnrollList(String courseId){
+        List<CourseAttendee__c> attendees = new List<CourseAttendee__c>();
+        attendees = [SELECT Id, Course__c 
+                        FROM  CourseAttendee__c 
+                        WHERE Course__c =: courseId 
+                        AND   Attendee__r.User__c =: UserInfo.getUserId()
+                        WITH SECURITY_ENFORCED
+                    ];
+        return attendees;
+    }
 }

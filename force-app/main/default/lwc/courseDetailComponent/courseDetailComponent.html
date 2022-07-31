@@ -56,12 +56,16 @@
                                 </p>
                             </template>
                             <template if:false={__courseDetails.CourseCompleted__c}>
+
+
+                                <!--  if you are alredy enrolled thid course then show  below message -->
                                 <template if:true={__enrollCompleted}>
-                                    <p>You are attending the event</p>
+                                    <p>You are attending the Course</p>
                                     <a class="slds-button slds-button_neutral" href="JavaScript:void(0);">
-                                        un-enroll from the event
+                                        un-enroll from the Course
                                     </a>
                                 </template>
+
                                 <template if:false={__enrollCompleted}>
                                     <template if:true={__showEnrollButton}>
                                         <lightning-button variant="brand" label="Enroll Now" title="Enroll Now"

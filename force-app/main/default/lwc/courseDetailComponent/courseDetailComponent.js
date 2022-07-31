@@ -3,9 +3,8 @@ import { CurrentPageReference } from 'lightning/navigation';
 import fetchCourseDetails from '@salesforce/apex/CourseDetailLWCService.fetchCourseDetails';
 import fetchTrainerDetails from '@salesforce/apex/CourseDetailLWCService.fetchTrainerDetails';
 import fetchUserName from '@salesforce/apex/UserUtility.fetchUserName';
-
+import fethEnrollList from '@salesforce/apex/CourseDetailLWCService.fethEnrollList';
 import { NavigationMixin } from 'lightning/navigation';
-
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class CourseDetailComponent extends NavigationMixin(LightningElement) {
 
@@ -20,12 +19,14 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
     __trainers;
     __courseDetails;
     __errors;
+    __enrollCompleted = false;
 
     // Variable to Display the location Map
     //@track __mapMarkers = [];
 
     // Variable for to show/hide Enroll button
     __showEnrollButton = false;
+    @api __enrollCompleted = false;
 
     // Variable to show  Modal
     __showModal = false;
@@ -33,7 +34,7 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
 
 
     @wire(fetchUserName)
-    wireDaata({ error, data }) {
+    wireData({ error, data }) {
         if (data) {
             // console.log('User Name \nn', data);
             if (data.includes('Site Guest User')) {
@@ -51,16 +52,27 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
     @wire(CurrentPageReference)
     getCurrentPageReference(PageReference) {
         this.__CurrentPageReference = PageReference;
-        // window.console.log('PageReference', this.__CurrentPageReference);
-        // window.console.log('state', this.__CurrentPageReference.state);
-        // window.console.log('state', this.__CurrentPageReference.state.c__courseId);
-        // window.console.log('state', this.__CurrentPageReference.state.courseId);
-
         this.courseId = this.__CurrentPageReference.state.courseId;
         this.source = this.__CurrentPageReference.state.source;
         this.fetchCourseDetailsJS();
         this.fetchTrainerDetailsJS();
+        this.fethEnrollListJs();
     }
+
+    
+    fethEnrollListJs() {
+        fethEnrollList({ courseId: this.courseId })
+            .then(result => {
+                console.log('Result \n', result);
+                if (result && result.length > 0) {
+                    this.__enrollCompleted = true;
+                }
+            })
+            .catch(error => {
+                console.log('error', error);
+            })
+    }
+
 
     fetchCourseDetailsJS() {
         this.isSpinner = true;
@@ -113,11 +125,11 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
     handleEnroll() {
         this.__showModal = true;
     }
-    
-    
+
+
     // showing toast message after success of enrolling
     handleEnrollSucess(event) {
-        //alert('You have Sucessfully Enolled for the Course');
+        alert('You have Sucessfully Enolled for the Course');
         event.preventDefault();
         this.__showModal = false;
         this.dispatchEvent(new ShowToastEvent({
@@ -125,6 +137,7 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
             message: 'You are sucessfully registered for the Course',
             variant: 'Sucess'
         }));
+        this.__enrollCompleted = true;
     }
 
     handleCancel() {
