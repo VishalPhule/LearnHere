@@ -5,7 +5,9 @@
         <template if:true={__courseDetails}>
             <!-- Course Title -->
             <div class=" courseTitle slds-var-p-around_large">
-                <p>{__courseDetails.Name__c}</p>
+                <p>
+                    <b>{__courseDetails.Name__c} </b>
+                </p>
                 <p>
                     <lightning-formatted-date-time value={__courseDetails.StartDateTime__c} year="numeric" month="short"
                         day="2-digit" hour="2-digit" minute="2-digit">
