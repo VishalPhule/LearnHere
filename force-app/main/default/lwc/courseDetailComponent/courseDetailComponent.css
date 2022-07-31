@@ -56,3 +56,18 @@
     border-radius: 50%;
 
 }
+.titleCalse{
+    font-size: xxx-large;
+    color: blue;
+    font-family: system-ui;
+    margin-bottom: 5px;
+}
+
+.org {
+    margin-top: 15px;
+    background: aliceblue;
+    font-family: monospace;
+    font-size: 16px;
+    border-radius: 10px;
+    text-align: center;
+}

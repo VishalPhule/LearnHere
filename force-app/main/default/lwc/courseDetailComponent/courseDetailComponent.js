@@ -6,6 +6,7 @@ import fetchUserName from '@salesforce/apex/UserUtility.fetchUserName';
 
 import { NavigationMixin } from 'lightning/navigation';
 
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class CourseDetailComponent extends NavigationMixin(LightningElement) {
 
     @api courseId;
@@ -21,21 +22,25 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
     __errors;
 
     // Variable to Display the location Map
-    @track __mapMarkers = [];
+    //@track __mapMarkers = [];
 
-    // Variable for to show/hide RSVP button
+    // Variable for to show/hide Enroll button
     __showEnrollButton = false;
+
+    // Variable to show  Modal
+    __showModal = false;
+    __showContactModal = false;
 
 
     @wire(fetchUserName)
     wireDaata({ error, data }) {
         if (data) {
-            console.log('User Name \nn', data);
+            // console.log('User Name \nn', data);
             if (data.includes('Site Guest User')) {
-                this._showEnrollButton = false;
+                this.__showEnrollButton = false;
             }
             else {
-                this._showEnrollButton = true;
+                this.__showEnrollButton = true;
             }
         }
         else if (error) {
@@ -65,7 +70,6 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
             .then(result => {
                 console.log('Result', result);
                 this.__courseDetails = result;
-
                 if (this.__eventDetails.Location__c) {
                     this.__mapMarkers.push({
                         location: {
@@ -100,17 +104,34 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
                 console.error('Error:', error);
                 this.__errors = error;
             })
-
             .finally(() => {
                 this.isSpinner = false;
             });
     }
+
+
     handleEnroll() {
-        console.log('OUTPUT:', this.eventId);
+        this.__showModal = true;
+    }
+    
+    
+    // showing toast message after success of enrolling
+    handleEnrollSucess(event) {
+        //alert('You have Sucessfully Enolled for the Course');
+        event.preventDefault();
+        this.__showModal = false;
+        this.dispatchEvent(new ShowToastEvent({
+            title: 'Sucess',
+            message: 'You are sucessfully registered for the Course',
+            variant: 'Sucess'
+        }));
+    }
+
+    handleCancel() {
+        this.__showModal = false;
     }
 
     handleContactUs() {
-
     }
 
     handleLoginRedirect() {
@@ -119,10 +140,8 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
             attributes: {
                 name: "Login"
             }
-
         }
         //   this.__CurrentPageReference.Navigate(navigationTarget);
         alert('Login to site to Enroll the Course');
     }
-
 }

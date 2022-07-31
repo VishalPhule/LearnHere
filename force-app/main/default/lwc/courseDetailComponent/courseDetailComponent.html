@@ -11,6 +11,73 @@
                         day="2-digit" hour="2-digit" minute="2-digit">
                     </lightning-formatted-date-time>
                 </p>
+
+                <!-- Event Enroll Modal start -->
+
+                <div class="courseENROLL custom-modal" if:true={__showModal}>
+                    <section role="dialog" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+
+                                <h2 class="slds-text-heading_medium slds-hyphenate">Enroll Now</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium">
+                                <c-enroll-Now-Component course-id={__courseDetails.Id} onsuccess={handleEnrollSucess}
+                                    oncancel={handleCancel}>
+                                </c-enroll-Now-Component>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+
+                <!-- Event Enroll Modal End -->
+
+                <!-- Event Enroll -->
+                <div class="courseENROLL slds-var-p-around_large">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                            medium-device-size="6" large-device-size="4">
+                            The event is accepting Enrolls and the last date to Enroll is
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                            medium-device-size="6" large-device-size="4">
+                            <lightning-formatted-date-time value={__courseDetails.StartDateTime__c} year="numeric"
+                                month="numeric" day="numeric" hour="2-digit" minute="2-digit" time-zone="IST"
+                                time-zone-name="short" hour12="true">
+                            </lightning-formatted-date-time>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                            medium-device-size="6" large-device-size="4">
+                            <!-- check if the event is completed  -->
+                            <template if:true={__courseDetails.CourseCompleted__c}>
+                                <p>
+                                    Course has been completed.
+                                </p>
+                            </template>
+                            <template if:false={__courseDetails.CourseCompleted__c}>
+                                <template if:true={__enrollCompleted}>
+                                    <p>You are attending the event</p>
+                                    <a class="slds-button slds-button_neutral" href="JavaScript:void(0);">
+                                        un-enroll from the event
+                                    </a>
+                                </template>
+                                <template if:false={__enrollCompleted}>
+                                    <template if:true={__showEnrollButton}>
+                                        <lightning-button variant="brand" label="Enroll Now" title="Enroll Now"
+                                            onclick={handleEnroll}>
+                                        </lightning-button>
+                                    </template>
+                                    <template if:false={__showEnrollButton}>
+                                        <lightning-button variant="brand" label="Login to Enroll" title="Login"
+                                            onclick={handleLoginRedirect}>
+                                        </lightning-button>
+                                    </template>
+                                </template>
+                            </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
                 <!-- Course Location -->
                 <div class=" location slds-var-p-around_large">
                     <template if:false={__courseDetails.Location__c}>
@@ -37,7 +104,7 @@
                     </lightning-formatted-rich-text>
                 </div>
                 <!-- Course ENROLL -->
-                <div class=" courseENROLL slds-var-p-around_large">
+                <!-- <div class=" courseENROLL slds-var-p-around_large">
                     <lightning-layout multiple-rows>
                         <lightning-layout-item size="12" padding="around-small" small-device-size="12"
                             medium-device-size="6" large-device-size="4">
@@ -53,7 +120,6 @@
                         <lightning-layout-item size="12" padding="around-small" small-device-size="12"
                             medium-device-size="6" large-device-size="4">
 
-
                             <template if:true={__showEnrollButton}>
                                 <lightning-button variant="brand" label="Enroll Now" title="Enroll Now"
                                     onclick={handleEnroll}>
@@ -64,13 +130,9 @@
                                     title="Login TO Enroll Now" onclick={handleLoginRedirect}>
                                 </lightning-button>
                             </template>
-
-                            <lightning-button variant="brand" label="Enroll Now" title="Enroll Now"
-                                onclick={handleEnroll}>
-                            </lightning-button>
                         </lightning-layout-item>
                     </lightning-layout>
-                </div>
+                </div> -->
                 <!-- Course Trainer -->
                 <div class=" trainer slds-var-p-around_large">
                     <p class="titleCalse"> Trainers</p>
@@ -114,11 +176,37 @@
                         {__courseDetails.CourseOrganizer__r.Short_Intro__c}
                     </p>
                 </div>
-                <!-- Contact Us -->
+
+
+                <!-- Contact Us Modal start -->
+
+                <div class="custom-modal" if:true={__showContactModal}>
+                    <section role="dialog" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <h2 class="slds-text-heading_medium slds-hyphenate">Contact Us</h2>
+                            </header>
+                            <div class="slds-modal__content slds-var-p-around_medium">
+                                <!-- <c-contact-us-component organizer-email={__eventDetails.CourseOrganizer__r.Email__c}
+                                    event-id={__courseDetails.Id}
+                                    organizer-owner={__courseDetails.CourseOrganizer__r.OwnerId}
+                                    onsuccess={handleContactUsSuccess} oncancel={handleContactCancel}>
+                                </c-contact-us-component> -->
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+
+                <!-- Contact Us Modal End -->
+
+                <!-- Contact us -->
                 <div class="contactUs slds-var-p-around_large">
-                    <lightning-button variant="success" label="Contact Us" title="Contact Us" onclick={handleContactUs}>
+                    <lightning-button variant="brand" icon-name="standard:email" label="Contact Us" title="Contact Us"
+                        onclick={handleContactUs}>
                     </lightning-button>
                 </div>
+
             </div>
         </template>
     </div>
