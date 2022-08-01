@@ -154,7 +154,6 @@ export default class CourseDetailComponent extends NavigationMixin(LightningElem
                 name: "Login"
             }
         }
-        //   this.__CurrentPageReference.Navigate(navigationTarget);
         alert('Login to site to Enroll the Course');
     }
 }

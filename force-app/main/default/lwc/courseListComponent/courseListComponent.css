@@ -5,24 +5,3 @@ body {
 .heading{
     text-align: center;
 }
-/* img {
-    width: 150px;
-    height: 140px;
-    margin-left: auto;
-    display: block;
-    margin: 0, auto;
-    border-radius: 50%;
-}
-
-.content {
-    display: block;
-    margin: 0, auto;
-    text-align: center;
-}
-
-.eventDiv:hover {
-    cursor: pointer;
-    border: 2px solid lightblue;
-    border-radius: 25px;
-    box-shadow: rgb(0, 0, 0, 0);
-} */

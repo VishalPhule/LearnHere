@@ -57,7 +57,7 @@ public without sharing class EnrollNowLWCService {
     public static User fetchUserDetails(){
         User user = new User();
         try {
-            user = [SELECT Id, Name, Email, Title, CompanyName FROM User WHERE Id =: UserInfo.getUserId() LIMIT 1];
+            user = [SELECT Id, Name, Email,Phone FROM User WHERE Id =: UserInfo.getUserId() LIMIT 1];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
